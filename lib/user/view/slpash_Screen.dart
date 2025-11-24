@@ -1,3 +1,4 @@
+import 'package:comic_world/user/view/log_in_screen.dart';
 import 'package:flutter/material.dart';
 
 class SlpashScreen extends StatefulWidget {
@@ -10,6 +11,8 @@ class SlpashScreen extends StatefulWidget {
 class _SlpashScreenState extends State<SlpashScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: ElevatedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (_)=>LogInScreen()));}, child: Text("login")),
+    );
   }
 }
