@@ -1,3 +1,4 @@
+import 'package:comic_world/user/view/sign_up_screen.dart';
 import 'package:comic_world/user/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,8 @@ class LogInScreen extends StatefulWidget {
 class _LogInScreenState extends State<LogInScreen> {
   final emailCntrl= TextEditingController();
   final passwordCntrl=TextEditingController();
+  bool isLoading=false;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,12 +44,24 @@ class _LogInScreenState extends State<LogInScreen> {
                       return null;
                     }),
                     textField(passwordCntrl, "Password", "Enter a Password", Icons.add, (){}),
-                    ElevatedButton(onPressed: (){}, child: Text("LogIn")),
+                    ElevatedButton(onPressed: (){
+                      isLoading=true;
+                    }, child: Text("LogIn")),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Divider(),
                         Text("or"),
                         Divider(),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(" Does'Not have a Accunt "),
+                        TextButton(onPressed: (){
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>SignUpScreen()));
+                        }, child: Text("SignUp"))
                       ],
                     ),
                     GestureDetector(
@@ -71,12 +86,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
 
 
-//  if (value == null || value.isEmpty) {
-//                           return "Password required";
-//                         } else if (value.length < 6) {
-//                           return "Password must be at least 6 characters";
-//                         }
-//                         return null;
+
 
 // if (value == null || value.isEmpty) {
                     //     return "Email required";
