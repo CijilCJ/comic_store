@@ -19,6 +19,11 @@ class _CartScreenState extends State<CartScreen> {
               height: 50,
               width: 500,
               color: Colors.blue,
+            ),
+            ListView.builder(
+              itemBuilder: (context,index){
+                return ListTile();
+              }
             )
           ],
         ),
