@@ -25,12 +25,12 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
             SearchBar(
               controller: SearchController(),
             ),
-            GridView.count(
-              crossAxisCount: 2,
-              children: [
-                Card()
-              ],
-            )
+            // GridView.count(
+            //   crossAxisCount: 2,
+            //   children: [
+            //     Card()
+            //   ],
+            // )
           ],
         ),
       ),

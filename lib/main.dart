@@ -1,4 +1,6 @@
 
+import 'package:comic_world/user/view/bottom_nav_bar.dart';
+import 'package:comic_world/user/view/profile_screen.dart';
 import 'package:comic_world/user/view/slpash_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: SlpashScreen(),
+      home: BottomNavBar(),
     );
   }
 }

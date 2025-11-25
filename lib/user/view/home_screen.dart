@@ -23,14 +23,15 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
+          spacing: 50,
           children: [
             SearchBar(
               controller: searchCntrl,
             ),
             Container(
-              height: 50,
+              height: 150,
               width: 500,
-              
+              color: Colors.blue,
             ),
             Row(
               spacing: 20,
@@ -42,12 +43,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ElevatedButton(onPressed: (){}, child: Text("data")),
               ],
             ),
-            ListView.builder(
-              itemCount: 1,
-              itemBuilder: (context, index){
-                return Card();
-              }
-             )
+            //  ListView.builder(
+            //   itemCount: 1,
+            //   itemBuilder: (context, index){
+            //     return Card();
+            //   }
+            //  )
           ],
         ),
       ),
