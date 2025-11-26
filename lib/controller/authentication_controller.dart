@@ -1,4 +1,3 @@
-
 import 'package:comic_world/service/authentication_service.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +6,7 @@ class AuthenticationController extends ChangeNotifier{
   AuthenticationService clientService= AuthenticationService();
 
   bool isLoading=false;
-  String errorMessage="";
+  String?  errorMessage;
 
 Future<void> signUpFunction(String email, String password)async{
     try {
@@ -15,19 +14,8 @@ Future<void> signUpFunction(String email, String password)async{
       notifyListeners();
       await clientService.signUpService (email,password);
     } catch (e) {
-      if (e==400) {
-        errorMessage="";
-      }else if(e==200){
-        errorMessage="";
-      }else if(e==404){
-        errorMessage="";
-      }else if(e==401){
-        errorMessage="";
-      }else if(e==403){
-        errorMessage="";
-      }else if(e==202){
-        errorMessage="";
-      }
+      errorMessage = e.toString();
+      
     }finally{
       isLoading=false;
       notifyListeners();
@@ -39,19 +27,7 @@ Future<void> signUpFunction(String email, String password)async{
       notifyListeners();
       await clientService.signInService(email ,password);
     } catch (e) {
-      if (e==400) {
-        errorMessage="";
-      }else if(e==200){
-        errorMessage="";
-      }else if(e==404){
-        errorMessage="";
-      }else if(e==401){
-        errorMessage="";
-      }else if(e==403){
-        errorMessage="";
-      }else if(e==202){
-        errorMessage="";
-      }
+      errorMessage=e.toString();
     }finally{
       isLoading=false;
       notifyListeners();
@@ -64,20 +40,7 @@ Future<void> signUpFunction(String email, String password)async{
     try {
       await clientService.signOutService();
     } catch (e) {
-      if (e==400) {
-        errorMessage="";
-      }else if(e==200){
-        errorMessage="";
-      }else if(e==404){
-        errorMessage="";
-      }else if(e==401){
-        errorMessage="";
-      }else if(e==403){
-        errorMessage="";
-      }else if(e==202){
-        errorMessage="";
-      }
-      
+      errorMessage = e.toString();
     }finally{
       isLoading=false;
       notifyListeners();
@@ -110,7 +73,7 @@ Future<void> signUpFunction(String email, String password)async{
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Error: $e')),
+      SnackBar(content: Text(e.toString())),
       );
     } finally {
       isLoading = false;

@@ -1,6 +1,8 @@
+import 'package:comic_world/controller/authentication_controller.dart';
 import 'package:comic_world/user/view/sign_up_screen.dart';
 import 'package:comic_world/user/widgets/textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -16,6 +18,7 @@ class _LogInScreenState extends State<LogInScreen> {
   
   @override
   Widget build(BuildContext context) {
+    final provider=Provider.of<AuthenticationController>(context);  
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(

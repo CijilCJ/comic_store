@@ -1,4 +1,6 @@
+import 'package:comic_world/controller/authentication_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class OtpVerifyScreen extends StatefulWidget {
   const OtpVerifyScreen({super.key});
@@ -10,6 +12,7 @@ class OtpVerifyScreen extends StatefulWidget {
 class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
   @override
   Widget build(BuildContext context) {
+    final provider=Provider.of<AuthenticationController>(context);
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
