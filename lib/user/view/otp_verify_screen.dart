@@ -1,7 +1,6 @@
-import 'package:comic_world/controller/authentication_controller.dart';
+
 import 'package:comic_world/user/view/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class OtpVerifyScreen extends StatefulWidget {
   const OtpVerifyScreen({super.key});

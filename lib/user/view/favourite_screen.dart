@@ -18,21 +18,104 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
           IconButton(onPressed: (){}, icon: Icon(Icons.select_all))
         ],
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            SearchBar(
-              controller: SearchController(),
+      body: Column(
+        spacing: 20,
+        children: [
+          SearchBar(
+            controller: SearchController(),
+          ),
+          Expanded(child: GridView.count(crossAxisCount: 2,children: [
+            Card(
+              color: Colors.blue,
+              child: Column(
+                spacing: 10,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      height: 120,
+                      width: double.infinity,
+                      color: Colors.grey,
+                      child: Icon(Icons.photo),
+                    ),
+                  ),
+                  Title(color: Colors.black, child: Text("Comic Name")),
+                  Text("auther"),
+                  Text("Price")
+                ],
+              ),
             ),
-            // GridView.count(
-            //   crossAxisCount: 2,
-            //   children: [
-            //     Card()
-            //   ],
-            // )
-          ],
-        ),
+            Card(
+              color: Colors.blue,
+              child: Column(
+                spacing: 10,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      height: 120,
+                      width: double.infinity,
+                      color: Colors.grey,
+                      child: Icon(Icons.photo),
+                    ),
+                  ),
+                  Title(color: Colors.black, child: Text("Comic Name")),
+                  Text("auther"),
+                  Text("Price")
+                ],
+              ),
+            ),
+            Card(
+              color: Colors.blue,
+              child: Column(
+                spacing: 10,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      height: 120,
+                      width: double.infinity,
+                      color: Colors.grey,
+                      child: Icon(Icons.photo),
+                    ),
+                  ),
+                  
+                  Title(color: Colors.black, child: Text("Comic Name")),
+                  Text("auther"),
+                  Text("Price")
+                ],
+              ),
+            ),
+            Card(
+              color: Colors.blue,
+              child: Column(
+                spacing: 10,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      height: 120,
+                      width: double.infinity,
+                      color: Colors.grey,
+                      child: Icon(Icons.photo),
+                    ),
+                  ),
+                  Title(color: Colors.black, child: Text("Comic Name")),
+                  Text("auther"),
+                  Text("Price")
+                ],
+              ),
+            ),
+          ],))
+          // GridView.count(
+          //   crossAxisCount: 2,
+          //   children: [
+          //     Card(
+          //       color: Colors.blue,
+          //     )
+          //   ],
+          // )
+        ],
       ),
     );
   }
