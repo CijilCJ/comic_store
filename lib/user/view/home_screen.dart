@@ -23,32 +23,48 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+  
           spacing: 50,
           children: [
             SearchBar(
               controller: searchCntrl,
             ),
-            Container(
-              height: 150,
-              width: 500,
-              color: Colors.blue,
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                height: 150,
+                 width: 500,
+                color: Colors.blue,
+              ),
             ),
-            Row(
-              spacing: 20,
-              children: [
-                ElevatedButton(onPressed: (){}, child: Text("data")),
-                ElevatedButton(onPressed: (){}, child: Text("data")),
-                ElevatedButton(onPressed: (){}, child: Text("data")),
-                ElevatedButton(onPressed: (){}, child: Text("data")),
-                ElevatedButton(onPressed: (){}, child: Text("data")),
-              ],
+            Title(color: Colors.black, child: Text("All")),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+        
+                ],
+              ),
             ),
-            //  ListView.builder(
-            //   itemCount: 1,
-            //   itemBuilder: (context, index){
-            //     return Card();
-            //   }
-            //  )
+            Title(color: Colors.black, child: Text("treining")),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+        
+                ],
+              ),
+            ),
+            Title(color: Colors.black, child: Text("action")),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  
+                ],
+              ),
+            ),
           ],
         ),
       ),

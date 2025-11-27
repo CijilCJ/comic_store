@@ -15,19 +15,7 @@ class ComicProvider extends ChangeNotifier {
     try {
       await clientService.getProduct();
     } catch (e) {
-      if (e == 400) {
-        errorMessage = "";
-      } else if (e == 200) {
-        errorMessage = "";
-      } else if (e == 404) {
-        errorMessage = "";
-      } else if (e == 401) {
-        errorMessage = "";
-      } else if (e == 403) {
-        errorMessage = "";
-      } else if (e == 202) {
-        errorMessage = "";
-      }
+      errorMessage=e.toString();
     } finally {
       isLoading = false;
       notifyListeners();
@@ -40,19 +28,7 @@ class ComicProvider extends ChangeNotifier {
     try {
       await clientService.insertComic(comic);
     } catch (e) {
-      if (e == 400) {
-        errorMessage = "";
-      } else if (e == 200) {
-        errorMessage = "";
-      } else if (e == 404) {
-        errorMessage = "";
-      } else if (e == 401) {
-        errorMessage = "";
-      } else if (e == 403) {
-        errorMessage = "";
-      } else if (e == 202) {
-        errorMessage = "";
-      }
+      errorMessage= e.toString();
     } finally {
       isLoading = false;
       notifyListeners();
@@ -65,19 +41,7 @@ class ComicProvider extends ChangeNotifier {
     try {
       await clientService.updateComic(comic);
     } catch (e) {
-      if (e == 400) {
-        errorMessage = "";
-      } else if (e == 200) {
-        errorMessage = "";
-      } else if (e == 404) {
-        errorMessage = "";
-      } else if (e == 401) {
-        errorMessage = "";
-      } else if (e == 403) {
-        errorMessage = "";
-      } else if (e == 202) {
-        errorMessage = "";
-      }
+      errorMessage= e.toString();
     } finally {
       isLoading = false;
       notifyListeners();
@@ -90,19 +54,7 @@ class ComicProvider extends ChangeNotifier {
     try {
       await clientService.deleteComic(comic.id);
     } catch (e) {
-      if (e == 400) {
-        errorMessage = "";
-      } else if (e == 200) {
-        errorMessage = "";
-      } else if (e == 404) {
-        errorMessage = "";
-      } else if (e == 401) {
-        errorMessage = "";
-      } else if (e == 403) {
-        errorMessage = "";
-      } else if (e == 202) {
-        errorMessage = "";
-      }
+     errorMessage= e.toString();
     } finally {
       isLoading = false;
       notifyListeners();

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -30,8 +32,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             ),
-            Title(color: Colors.black, child: Text("UserName")),
-                  Text("emil"),
+            Title(color: Colors.black, child: Text("$e User Name")),
+                  Text("$e emil"),
             ListTile(
               onTap: (){},
               title: Text("notification"),
