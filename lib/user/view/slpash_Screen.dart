@@ -12,7 +12,7 @@ class _SlpashScreenState extends State<SlpashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ElevatedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (_)=>LogInScreen()));}, child: Text("login")),
+      body: ElevatedButton(onPressed: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>LogInScreen()));}, child: Text("login")),
     );
   }
 }
