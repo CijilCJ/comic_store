@@ -1,6 +1,8 @@
-import 'dart:math';
 
+import 'package:comic_world/controller/authentication_controller.dart';
+import 'package:comic_world/user/view/log_in_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -20,7 +22,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.logout))
+          IconButton(onPressed: ()=>_signOut(), icon: Icon(Icons.logout))
         ],
       ),
       body: SingleChildScrollView(
@@ -71,5 +73,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
+  }
+  Future<void> _signOut ()async{
+    final auth = Provider.of<AuthenticationController>(context, listen: false);
+
+    await auth.signoutFunction();
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const LogInScreen()),
+        (route) => false, 
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("LogOut succesfuly")),
+      );
+    
   }
 }

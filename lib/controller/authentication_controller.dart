@@ -1,4 +1,4 @@
-import 'package:comic_world/service/authentication_service.dart';
+import 'package:comic_world/user/service/authentication_service.dart';
 import 'package:flutter/material.dart';
 
 class AuthenticationController extends ChangeNotifier{
