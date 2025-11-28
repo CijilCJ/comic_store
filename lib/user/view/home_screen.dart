@@ -1,4 +1,11 @@
+import 'dart:io';
+
+import 'package:comic_world/controller/authentication_controller.dart';
+import 'package:comic_world/controller/profile_image_provider.dart';
+import 'package:comic_world/model/user_data.dart';
+import 'package:comic_world/user/view/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -8,15 +15,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   final searchCntrl =TextEditingController();
   @override
   Widget build(BuildContext context) {
+      final profile = context.watch<ProfileImageProvider>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text("WelCome to Comic World"),
         actions: [
           CircleAvatar(
-            child: TextButton(onPressed: (){}, child: Icon(Icons.person)),
+            backgroundImage: profile.profileImage != null
+                ? FileImage(profile.profileImage!)
+                : AssetImage("assets/user.png") as ImageProvider,
           ),
         ],
       ),

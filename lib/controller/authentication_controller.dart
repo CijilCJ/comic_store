@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:comic_world/user/service/authentication_service.dart';
 import 'package:flutter/material.dart';
 
@@ -8,47 +10,60 @@ class AuthenticationController extends ChangeNotifier{
   bool isLoading=false;
   String?  errorMessage;
 
-Future<void> signUpFunction(String email, String password)async{
+  void _start() {
+    isLoading = true;
+    errorMessage = null;
+    notifyListeners();
+  }
+
+  void _finish() {
+    isLoading = false;
+    notifyListeners();
+  }
+
+Future<bool> signUpFunction(String email, String password)async{
+  _start();
     try {
-      isLoading=true;
-      notifyListeners();
       await clientService.signUpService (email,password);
+      errorMessage= clientService.errorMessage;
+      return errorMessage==null;
     } catch (e) {
       errorMessage = e.toString();
-      
+      errorMessage = "Something went wrong. Try again.";
+      return false;
     }finally{
-      isLoading=false;
-      notifyListeners();
+      _finish();
     }
   }
-  Future<void> signInFunction(String email, String password)async{
+  Future<bool> signInFunction(String email, String password)async{
+    _start();
     try {
-      isLoading=true;
-      notifyListeners();
       await clientService.signInService(email ,password);
+      errorMessage = clientService.errorMessage;
+      return errorMessage == null;
     } catch (e) {
-      errorMessage=e.toString();
+     errorMessage = "Unexpected error occurred.";
+      return false;
     }finally{
-      isLoading=false;
-      notifyListeners();
+      _finish();
     }
   }
 
-  Future<void>signoutFunction()async{
-    isLoading=true;
-      notifyListeners();
+  Future<bool>signoutFunction()async{
+    _start();
     try {
       await clientService.signOutService();
+      errorMessage = clientService.errorMessage;
+      return errorMessage == null;
     } catch (e) {
-      errorMessage = e.toString();
+      errorMessage = "Logout failed. Try again.";
+      return false;
     }finally{
-      isLoading=false;
-      notifyListeners();
+      _finish();
     }
   }
   Future<void> googleAuth(BuildContext context)async{
-    isLoading = true;
-    notifyListeners();
+    _start();
     try {
       await clientService.signInWithGoogle();
       Navigator.pushReplacementNamed(context, '/home');
@@ -57,38 +72,33 @@ Future<void> signUpFunction(String email, String password)async{
         SnackBar(content: Text('Google Sign-In failed: $e')),
       );
     } finally {
-      isLoading = false;
-      notifyListeners();
+       _finish();
     }
   }
 
-  Future<void> sendOtp(String phone, BuildContext context) async {
-    isLoading = true;
-    notifyListeners();
+  Future<bool> sendOtp(String phone, BuildContext context) async {
+   _start();
 
     try {
       await clientService.signInWithOtp(phone);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('OTP sent to $phone')),
-      );
+      errorMessage = clientService.errorMessage;
+      return errorMessage == null;
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(e.toString())),
-      );
+      errorMessage = "Failed to send OTP.";
+      return false;
     } finally {
-      isLoading = false;
-      notifyListeners();
+     _finish();
     }
   }
 
-  Future<void>verifyOTP(String phone,BuildContext context,String token)async{
+  Future<bool>verifyOTP(String phone,BuildContext context,String token)async{
     try {
       await clientService.verifyOtp(phone, token);
-      Navigator.pushReplacementNamed(context, '/home');
+      errorMessage = clientService.errorMessage;
+      return errorMessage == null;
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('OTP verification failed: $e')),
-      );
+      errorMessage = "Invalid OTP. Try again.";
+      return false;
     }
   }
 

@@ -21,7 +21,7 @@ class UserModel {
       email: json["email"], 
       avatarUrl: json["avatarUrl"], 
       phone: json["phone"],
-      role: json['created_at']);
+      role: json['role']);
   }
   Map<String,dynamic>toJson(){
     return{
@@ -30,7 +30,7 @@ class UserModel {
       "email":email,
       "avatarUrl":avatarUrl,
       "phone":phone,
-      "createdAt":role
+      "role":role
     };
   }
 }

@@ -1,39 +1,135 @@
-
 import 'package:comic_world/user/view/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class OtpVerifyScreen extends StatefulWidget {
-  const OtpVerifyScreen({super.key});
+class OtpVerifyPage extends StatefulWidget {
+  final String userName;
+  final String email;
+  final String mobile;
+
+  const OtpVerifyPage({
+    super.key,
+    required this.userName,
+    required this.email,
+    required this.mobile,
+  });
 
   @override
-  State<OtpVerifyScreen> createState() => _OtpVerifyScreenState();
+  State<OtpVerifyPage> createState() => _OtpVerifyPageState();
 }
 
-class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
+class _OtpVerifyPageState extends State<OtpVerifyPage> {
+  String pin = "";
+  bool isLoading = false;
+
+  void addDigit(String digit) {
+    if (pin.length < 6) {
+      setState(() {
+        pin += digit;
+      });
+    }
+  }
+
+  Future<void> verifyOtp() async {
+    if (pin.length != 6) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please enter 6 digit OTP")),
+      );
+      return;
+    }
+
+    setState(() => isLoading = true);
+
+    try {
+      final supabase = Supabase.instance.client;
+
+      await supabase.auth.verifyOTP(
+        type: OtpType.email,
+        email: widget.email,
+        token: pin,
+      );
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const BottomNavBar()),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Invalid OTP: $e")));
+    } finally {
+      setState(() => isLoading = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final provider=Provider.of<AuthenticationController>(context);
     return Scaffold(
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Verification Email",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-              Text("Enter the OTP sent to your email:"),
-          
-              ElevatedButton(
-                onPressed: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>BottomNavBar()));
-                }, 
-                child: Text("Verify")
-              )
-            ],
+      body: Column(
+        spacing: 30,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+         SizedBox(height: 10),
+         Center(
+           child: Text("Verification Email",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+         ),
+          Text('Enter the OTP sent to your email: ${widget.email}'),
+
+          Text(
+            pin.padRight(6, "_"), 
+            style: TextStyle(fontSize: 32, letterSpacing: 10),
           ),
-        ),
+
+          ElevatedButton(
+            onPressed: isLoading ? null : verifyOtp,
+            child: isLoading
+                ? CircularProgressIndicator()
+                : Text("Verify OTP"),
+          ),
+        ],
       ),
     );
   }
 }
+
+
+
+
+// import 'package:comic_world/user/view/bottom_nav_bar.dart';
+// import 'package:flutter/material.dart';
+
+// class OtpVerifyScreen extends StatefulWidget {
+//   const OtpVerifyScreen({super.key});
+
+//   @override
+//   State<OtpVerifyScreen> createState() => _OtpVerifyScreenState();
+// }
+
+// class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
+//   @override
+//   Widget build(BuildContext context) {
+//     // final provider=Provider.of<AuthenticationController>(context);
+//     return Scaffold(
+//       body: SingleChildScrollView(
+//         scrollDirection: Axis.vertical,
+//         child: Center(
+//           child: Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               Text("Verification Email",
+//               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+//               Text("Enter the OTP sent to your email:"),
+          
+//               ElevatedButton(
+//                 onPressed: (){
+//                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>BottomNavBar()));
+//                 }, 
+//                 child: Text("Verify")
+//               )
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
