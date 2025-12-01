@@ -44,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 backgroundImage: profile.profileImage != null
                     ? FileImage(profile.profileImage!)
                     : const AssetImage("assets/user.png") as ImageProvider,
-                    
+
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 55.0,top: 75),
@@ -88,7 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> _signOut ()async{
     final auth = Provider.of<AuthenticationController>(context, listen: false);
 
-    await auth.signoutFunction();
+    await auth.signOutFunction();
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (_) => const LogInScreen()),
@@ -112,17 +112,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
 }
 
 
-
-
-//          circleAvatar(
-//                 radius: 50,
-//                 child: IconButton(onPressed: (){
-//                   if(pickedImage==null){
-//                     Navigator.pop(context);
-//                     _pickImageSource(ImageSource.gallery);
-//                   }else{
-//                     Navigator.pop(context);
-//                     _pickImageSource(ImageSource.camera);
-//                   }
-//                 }, icon: Icon(Icons.person)),
-//               ),

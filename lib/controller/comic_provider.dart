@@ -52,7 +52,7 @@ class ComicProvider extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
     try {
-      await clientService.deleteComic(comic.id);
+      await clientService.deleteComic(comic.id.toString());
     } catch (e) {
      errorMessage= e.toString();
     } finally {

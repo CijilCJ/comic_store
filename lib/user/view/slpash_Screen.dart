@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -18,38 +17,48 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-    _checkUser();
-  });
-  } 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkUser();
+    });
+  }
 
   Future<void> _checkUser() async {
-    final supabase=Supabase.instance.client;
+    final supabase = Supabase.instance.client;
 
-    await Future.delayed(const Duration(seconds: 2));
-    final user =supabase.auth.currentUser;
-  
+    await Future.delayed(Duration(seconds: 2));
+    final user = supabase.auth.currentUser;
+
     if (user == null) {
-      await supabase.auth.signOut();
-     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LogInScreen()));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LogInScreen()),
+      );
       return;
     }
 
     try {
-      final userDoc = await supabase.from("comic_store").select().eq("id", user.id).maybeSingle();
+      final userDoc =
+          await supabase
+              .from("comic_store")
+              .select()
+              .eq("id", user.id)
+              .maybeSingle();
 
       final role = userDoc!['role'] ?? 'user';
 
-      if(role=='user') {
-       Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (context)=>BottomNavBar()), (route)=>false);
-      }else{
-        Navigator.pushReplacement(context,
-         MaterialPageRoute(builder: (context)=>LogInScreen()));
+      if (role == 'user') {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => BottomNavBar()),
+          (route) => false,
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LogInScreen()),
+        );
       }
-
     } catch (e) {
-      await supabase.auth.signOut();
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => LogInScreen()),
@@ -59,13 +68,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           spacing: 30,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            
             Center(child: Text("C O M I C  W O R L D")),
             CircularProgressIndicator(),
           ],

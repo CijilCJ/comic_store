@@ -28,70 +28,115 @@ class _LogInScreenState extends State<LogInScreen> {
     passwordController.dispose();
     super.dispose();
   }
+  final supabase = Supabase.instance.client;
 
-  Future<void> _login() async {
-    if (!_formKey.currentState!.validate()) return;
+Future<void> _login(String email, String password) async {
+  try {
+    final response = await supabase.auth.signInWithPassword(
+      email: email,
+      password: password,
+    );
 
-    setState(() => isLoading = true);
+    print("Login success: ${response.user?.email}");
 
-    try {
-      await Supabase.instance.client.auth.signInWithPassword(
-        password: passwordController.text,
-        email: emailController.text,
-      );
-
-      final response = await Supabase.instance.client.auth.signInWithPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
-
-      if (response.user != null) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text("Login Successful")));
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => BottomNavBar()),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Please verify your email before logging in."),
-          ),
-        );
-      }
-    } on AuthException catch (e) {
-      if (e.message.contains("Email not confirmed")) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(e.message)));
-      } else {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(e.message)));
-      }
-    } on Exception {
-      if (e.toString().contains("")) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(e.toString())));
-      } else {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(e.toString())));
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Something went wrong$e")));
-    } finally {
-      setState(() => isLoading = false);
-    }
+  } catch (e) {
+    print("Login error: $e");
   }
+}
+
+  // Future<void>_login()async{
+  //   try {
+  //   final response = await Supabase.instance.client.auth.signInWithPassword(
+  //       password: passwordController.text,
+  //       email: emailController.text,
+  //     );
+  //     if (response.user!=null) {
+  //       ScaffoldMessenger.of(
+  //         context,
+  //       ).showSnackBar(SnackBar(content: Text("Login Successful")));
+  //       Navigator.pushReplacement(
+  //         context,
+  //         MaterialPageRoute(builder: (_) => BottomNavBar()),
+  //       );
+  //     }else {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(
+  //           content: Text("Please verify your email before logging in."),
+  //         ),
+  //       );
+  //     }
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(
+  //       context,
+  //     ).showSnackBar(SnackBar(content: Text("Something went wrong$e")));
+  //   } finally {
+  //     setState(() => isLoading = false);
+  //   }
+  // }
+  // Future<void> _login() async {
+  //   if (!_formKey.currentState!.validate()) return;
+
+  //   setState(() => isLoading = true);
+
+  //   try {
+  //     await Supabase.instance.client.auth.signInWithPassword(
+  //       password: passwordController.text,
+  //       email: emailController.text,
+  //     );
+
+  //     final response = await Supabase.instance.client.auth.signInWithPassword(
+  //       email: emailController.text.trim(),
+  //       password: passwordController.text.trim(),
+  //     );
+
+  //     if (response.user != null) {
+  //       ScaffoldMessenger.of(
+  //         context,
+  //       ).showSnackBar(SnackBar(content: Text("Login Successful")));
+
+  //       Navigator.pushReplacement(
+  //         context,
+  //         MaterialPageRoute(builder: (_) => BottomNavBar()),
+  //       );
+      // } else {
+      //   ScaffoldMessenger.of(context).showSnackBar(
+      //     SnackBar(
+      //       content: Text("Please verify your email before logging in."),
+      //     ),
+      //   );
+      // }
+  //   } on AuthException catch (e) {
+  //     if (e.message.contains("Email not confirmed")) {
+  //       ScaffoldMessenger.of(
+  //         context,
+  //       ).showSnackBar(SnackBar(content: Text(e.message)));
+  //     } else {
+  //       ScaffoldMessenger.of(
+  //         context,
+  //       ).showSnackBar(SnackBar(content: Text(e.message)));
+  //     }
+  //   } on Exception {
+  //     if (e.toString().contains("")) {
+  //       ScaffoldMessenger.of(
+  //         context,
+  //       ).showSnackBar(SnackBar(content: Text(e.toString())));
+  //     } else {
+  //       ScaffoldMessenger.of(
+  //         context,
+  //       ).showSnackBar(SnackBar(content: Text(e.toString())));
+  //     }
+  //   } catch (e) {
+    //   ScaffoldMessenger.of(
+    //     context,
+    //   ).showSnackBar(SnackBar(content: Text("Something went wrong$e")));
+    // } finally {
+    //   setState(() => isLoading = false);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final provider=Provider.of<AuthenticationController>(context);
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -134,16 +179,16 @@ class _LogInScreenState extends State<LogInScreen> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  validator: (v) => v!.isEmpty ? "Password required" : null,
+                  
                 ),
-
+                  // validator: (v) => v!.isEmpty ? "Password required" : null,
                 SizedBox(height: 10),
 
                 SizedBox(
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: isLoading ? null : _login,
+                    onPressed:(){_login(emailController.text.trim(), passwordController.text.trim());},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.cyan,
                       shape: RoundedRectangleBorder(
@@ -219,3 +264,88 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 }
+
+
+
+
+
+// Login =>                                                                        import 'package:flutter/material.dart';
+// import 'package:provider/provider.dart';
+// import 'package:supabase_practice/view/signup.dart';
+// import '../controller/auth_controller.dart';
+
+
+// class LoginPage extends StatelessWidget {
+//   LoginPage({super.key});
+
+//   final emailCtrl = TextEditingController();
+//   final passCtrl = TextEditingController();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final auth = Provider.of<AuthController>(context);
+
+//     return Scaffold(
+//       appBar: AppBar(title: Text("Login")),
+//       body: Padding(
+//         padding: const EdgeInsets.all(16.0),
+//         child: Column(
+//           children: [
+
+//             TextField(
+//               controller: emailCtrl,
+//               decoration: InputDecoration(
+//                 labelText: "Email",
+//                 border: OutlineInputBorder(),
+//               ),
+//             ),
+//             SizedBox(height: 12),
+
+//             TextField(
+//               controller: passCtrl,
+//               decoration: InputDecoration(
+//                 labelText: "Password",
+//                 border: OutlineInputBorder(),
+//               ),
+//               obscureText: true,
+//             ),
+
+//             SizedBox(height: 20),
+
+//             auth.isLoading
+//                 ? CircularProgressIndicator()
+//                 : ElevatedButton(
+//                     onPressed: () async {
+//                       bool success = await auth.login(
+//                         emailCtrl.text.trim(),
+//                         passCtrl.text.trim(),
+//                       );
+
+//                       if (success) {
+//                         ScaffoldMessenger.of(context).showSnackBar(
+//                           SnackBar(content: Text("Login Success")),
+//                         );
+//                       } else {
+//                         ScaffoldMessenger.of(context).showSnackBar(
+//                           SnackBar(content: Text(auth.errorMsg ?? "Login failed")),
+//                         );
+//                       }
+//                     },
+//                     child: Text("Login"),
+//                   ),
+
+//             TextButton(
+//               onPressed: () {
+//                 Navigator.push(
+//                   context,
+//                   MaterialPageRoute(builder: (_) => SignUpPage()),
+//                 );
+//               },
+//               child: Text("Don't have an account? Sign Up"),
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
