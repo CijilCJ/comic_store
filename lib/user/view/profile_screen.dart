@@ -43,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 radius: 60,
                 backgroundImage: profile.profileImage != null
                     ? FileImage(profile.profileImage!)
-                    : const AssetImage("assets/user.png") as ImageProvider,
+                    : const AssetImage("") as ImageProvider,
 
               ),
               Padding(

@@ -12,12 +12,16 @@ Future<void> main() async {
     url: "https://orxroxjmxdjxgdkzbgcp.supabase.co",
     anonKey:
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yeHJveGpteGRqeGdka3piZ2NwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1NDE4OTksImV4cCI6MjA3OTExNzg5OX0.mphbRGnJuYY8NpzB0l7JvsStzaWldVyEG7P7gRoQ-Js",
+    authOptions: FlutterAuthClientOptions(
+      autoRefreshToken: true,
+      authFlowType: AuthFlowType.pkce
+    )
   );
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthenticationController()),
-        ChangeNotifierProvider(create: (_)=> ProfileImageProvider())
+        ChangeNotifierProvider(create: (_) => ProfileImageProvider()),
       ],
       child: const MyApp(),
     ),

@@ -64,29 +64,31 @@ class _OtpVerifyPageState extends State<OtpVerifyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        spacing: 30,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-         SizedBox(height: 10),
-         Center(
-           child: Text("Verification Email",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-         ),
-          Text('Enter the OTP sent to your email: ${widget.email}'),
-
-          Text(
-            pin.padRight(6, "_"), 
-            style: TextStyle(fontSize: 32, letterSpacing: 10),
-          ),
-
-          ElevatedButton(
-            onPressed: isLoading ? null : verifyOtp,
-            child: isLoading
-                ? CircularProgressIndicator()
-                : Text("Verify OTP"),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          spacing: 30,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+           SizedBox(height: 10),
+           Center(
+             child: Text("Verification Email",
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+           ),
+            Text('Enter the OTP sent to your email: ${widget.email}'),
+        
+            Text(
+              pin.padRight(6, "_"), 
+              style: TextStyle(fontSize: 32, letterSpacing: 10),
+            ),
+        
+            ElevatedButton(
+              onPressed: isLoading ? null : verifyOtp,
+              child: isLoading
+                  ? CircularProgressIndicator()
+                  : Text("Verify OTP"),
+            ),
+          ],
+        ),
       ),
     );
   }

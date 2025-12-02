@@ -552,8 +552,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     validator:
                         (v) =>
                             v!.length < 6
-                                ? "Password must be at least 6 characters"
-                                : null,
+                            ? "Password must be at least 6 characters"
+                            : null,
                   ),
                   TextFormField(
                     controller: confirmPasswordController,

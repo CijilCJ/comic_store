@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
           CircleAvatar(
             backgroundImage: profile.profileImage != null
                 ? FileImage(profile.profileImage!)
-                : AssetImage("assets/user.png") as ImageProvider,
+                : AssetImage("") as ImageProvider,
           ),
         ],
       ),

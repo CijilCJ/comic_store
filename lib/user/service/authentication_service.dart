@@ -64,12 +64,16 @@ class AuthenticationService {
       await authService.auth.signInWithPassword(email: email, password: password);
     }on AuthException catch (e) {
       errorMessage = e.message;
+      log(e.message);
     }on PostgrestException catch(e){
       errorMessage = e.message;
+       log(e.message);
     }on Exception catch (e){
       errorMessage = e.toString();
+       log(e.toString());
     }catch(e){
       errorMessage=e.toString();
+       log(e.toString());
     }
   }
 

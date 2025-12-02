@@ -22,12 +22,14 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
+
   Future<void> _checkUser() async {
     final supabase = Supabase.instance.client;
 
     await Future.delayed(Duration(seconds: 2));
-    final user = supabase.auth.currentUser;
-
+    final session = supabase.auth.currentSession;
+    final user = session?.user;
+ 
     if (user == null) {
       Navigator.pushReplacement(
         context,
