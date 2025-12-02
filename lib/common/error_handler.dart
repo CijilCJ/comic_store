@@ -440,5 +440,50 @@
 //   }
 // }
 
+// Future<void> _signUp() async {
+//   if (!_formKey.currentState!.validate()) return;
+
+//   setState(() => isLoading = true);
+
+//   try {
+//     final response = await Supabase.instance.client.auth.signUp(
+//       email: emailController.text.trim(),
+//       password: passwordController.text.trim(),
+//       data: {
+//         "username": userNameController.text.trim(),
+//         "phone": phoneController.text.trim(),
+//         "role": "user",
+//       },
+//     );
+
+//     if (response.user != null) {
+//       if (response.user!.identities!.isEmpty) {
+//         // user exists already
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(content: Text("User already exists. Try login.")),
+//         );
+//       } else {
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(content: Text("Account created! Please verify your email.")),
+//         );
+//         Navigator.pushReplacement(
+//           context,
+//           MaterialPageRoute(builder: (_) => LogInScreen()),
+//         );
+//       }
+//     }
+//   } on AuthException catch (e) {
+//     ScaffoldMessenger.of(context).showSnackBar(
+//       SnackBar(content: Text(e.message)),
+//     );
+//   } catch (e) {
+//     ScaffoldMessenger.of(context).showSnackBar(
+//       SnackBar(content: Text("Something went wrong. Try again.")),
+//     );
+//   } finally {
+//     setState(() => isLoading = false);
+//   }
+// }
+
 
 
