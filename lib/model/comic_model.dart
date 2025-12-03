@@ -3,7 +3,7 @@ class ComicBookModel {
   final String title;
   final String author;
   final String description;
-  final String imageUrl;
+  // final String imageUrl;
   final double price;
   final String category;
   final DateTime releaseDate;
@@ -15,7 +15,7 @@ class ComicBookModel {
     required this.author,
     required this.price,
     required this.description,
-    required this.imageUrl,
+    // required this.imageUrl,
     required this.category,
     required this.releaseDate,
     this.isFavorite=false
@@ -27,7 +27,7 @@ class ComicBookModel {
       author: json["author"], 
       price: json["price"],
       description: json["description"], 
-      imageUrl: json["image"],
+      // imageUrl: json["image"],
       category:  json["category"],
       releaseDate: json["releaseDate"]
       );
@@ -42,7 +42,7 @@ class ComicBookModel {
       "description":description,
       "category":category,
       "releaseDate":releaseDate,
-      "image":imageUrl
+      // "image":imageUrl
     };
   }
 }

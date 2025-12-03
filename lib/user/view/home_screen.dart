@@ -1,10 +1,5 @@
-import 'dart:io';
-
-import 'package:comic_world/controller/authentication_controller.dart';
 import 'package:comic_world/controller/profile_image_provider.dart';
 import 'package:comic_world/model/comic_model.dart';
-import 'package:comic_world/model/user_data.dart';
-import 'package:comic_world/user/view/profile_screen.dart';
 import 'package:comic_world/user/widgets/home_screen_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,9 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text("WelCome to Comic World"),
         actions: [
           CircleAvatar(
-            backgroundImage: profile.profileImage != null
-                ? FileImage(profile.profileImage!)
-                : AssetImage("") as ImageProvider,
+            // backgroundImage: profile.profileImage != null
+            //     ? FileImage(profile.profileImage!)
+            //     : AssetImage("") as ImageProvider,
           ),
         ],
       ),
@@ -174,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
     author: "Masashi Kishimoto",
     price: 199,
     description: "very mage",
-    imageUrl: "",
+    // imageUrl: "",
     releaseDate: DateTime(2026),
     isFavorite: true,
     category: "Action",
@@ -185,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
     author: "Masashi Kishimoto",
     price: 199,
     description: "very mage",
-    imageUrl: "",
+    // imageUrl: "",
     releaseDate: DateTime(2026),
     isFavorite: true,
     category: "Action",
@@ -196,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
     author: "Masashi Kishimoto",
     price: 199,
     description: "very mage",
-    imageUrl: "",
+    // imageUrl: "",
     releaseDate: DateTime(2026),
     isFavorite: true,
     category: "Action",
@@ -223,69 +218,71 @@ class _ComicCard extends StatelessWidget {
 
 
           },
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                child: AspectRatio(
-                  aspectRatio: 3 / 4,
-                  child: Image.asset(
-                    comic.imageUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => Container(
-                      color: Colors.grey[300],
-                      child: const Icon(Icons.image_not_supported),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+            
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                  child: AspectRatio(
+                    aspectRatio: 3 / 4,
+                    child: Image.asset(
+                      comic.title,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Container(
+                        color: Colors.grey[300],
+                        child: const Icon(Icons.image_not_supported),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      comic.title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      comic.author,
-                      style: const TextStyle(
-                        fontSize: 11,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "₹${comic.price.toStringAsFixed(0)}",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        comic.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 13,
                         ),
-                        Row(
-                          children: [
-                            const Icon(Icons.star, size: 14, color: Colors.amber),
-                            const SizedBox(width: 2),
-                          ],
-                        )
-                      ],
-                    )
-                  ],
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        comic.author,
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "₹${comic.price.toStringAsFixed(0)}",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              const Icon(Icons.star, size: 14, color: Colors.amber),
+                              const SizedBox(width: 2),
+                            ],
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -308,7 +305,7 @@ class _ComicListTile extends StatelessWidget {
           width: 55,
           height: 75,
           child: Image.asset(
-            comic.imageUrl,
+            comic.title,
             fit: BoxFit.cover,
             errorBuilder: (_, __, ___) => Container(
               color: Colors.grey[300],

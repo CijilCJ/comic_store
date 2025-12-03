@@ -41,30 +41,35 @@ class _SplashScreenState extends State<SplashScreen> {
     try {
       final userDoc =
           await supabase
-              .from("comic_store")
+              .from("user_table")
               .select()
-              .eq("id", user.id)
+              .eq("id",session!.user.id)
               .maybeSingle();
 
-      final role = userDoc!['role'] ?? 'user';
-
-      if (role == 'user') {
+      final role = userDoc!['role'] ?? 'user'; 
+      if (session != null) {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>BottomNavBar()));
+        print("User is logged in");
+      } else if (role == 'user') {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => BottomNavBar()),
           (route) => false,
         );
+       print("User is logged in");
       } else {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => LogInScreen()),
         );
+        print("User is not logged in");
       }
     } catch (e) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => LogInScreen()),
       );
+      print("User is not logged in $e");
     }
   }
 

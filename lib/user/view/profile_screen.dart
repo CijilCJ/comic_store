@@ -41,9 +41,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children:[ 
                 CircleAvatar(
                 radius: 60,
-                backgroundImage: profile.profileImage != null
-                    ? FileImage(profile.profileImage!)
-                    : const AssetImage("") as ImageProvider,
+                // backgroundImage: profile.profileImage != null
+                //     ? FileImage(profile.profileImage!)
+                //     : const AssetImage("") as ImageProvider,
 
               ),
               Padding(
